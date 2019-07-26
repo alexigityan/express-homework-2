@@ -24,7 +24,6 @@ app.use( (req, res, next) => {
   });
   if (!todos[userId]) {
     todos[userId] = [];
-    console.log(todos[userId]);
     Array.prototype.addTodo = function(todo) {
       if (!this.freeId) {
         this.freeId = 1;
@@ -32,8 +31,7 @@ app.use( (req, res, next) => {
       this.push({ id: this.freeId++, text: todo });
     }
   }
-  
-  res.locals.todos = todos[userId];
+  res.locals.userId = userId;
   next();
 });
 
@@ -41,18 +39,18 @@ app.use('/api', api);
 
 app.route('/')
   .get((req, res) => {
-    console.log(app.locals.todos);
-    res.render('index');  
+    const todos = app.locals.todos[res.locals.userId];
+    res.render('index', { todos });  
   })
   .post((req, res) => {
-    const { todos } = res.locals;
+    const todos = app.locals.todos[res.locals.userId];
     const { todo } = req.body;
 
     if (!todo) 
       res.sendStatus(400);
 
     todos.addTodo(todo);
-    res.render('index');  
+    res.render('index', { todos });  
   });
 
 app.get('/edit', (req, res)=>{
