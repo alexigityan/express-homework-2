@@ -1,4 +1,17 @@
 extends layout
 
 block content
-  h1 hello world
+  h1 Todo List
+
+  form(action="/" method="post")
+    label(for="todo") New Todo: 
+    input(type="text" name="todo" id="todo" placeholder="Walk the dog" required)
+    input(type="submit" value="Add")
+
+  div(id="todo-list")
+    each todo in todos
+      div(class="todo-row")
+        p(class="todo-text")= todo.text
+        button(class="edit-button" data-target=todo.id) Edit
+        button(class="delete-button" data-target=todo.id) Delete
+
