@@ -7,7 +7,7 @@ const api = require('./api');
 
 const app = express();
 
-app.locals.todos = {};
+app.locals.users = {};
 
 app.set('view engine', 'pug');
 
@@ -16,18 +16,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use( (req, res, next) => {
-  const { todos } = app.locals;
+  const { users } = app.locals;
   const { uid } = req.cookies;
-  const userId = (uid && todos[uid]) ? uid : generateId();
+  const userId = (uid && users[uid]) ? uid : generateId();
 
   res.cookie('uid', userId, {
     maxAge: 7*24*60*60*1000 // cookie expires in a week
   });
 
-  if (!todos[userId])
-    todos[userId] = new TodoList();
+  if (!users[userId])
+    users[userId] = new TodoList();
   
-  res.locals.todoList = todos[userId];
+  res.locals.todoList = users[userId];
   next();
 });
 
@@ -48,10 +48,6 @@ app.route('/')
     todoList.add(todo);
     res.render('index', { todos: todoList.list });  
   });
-
-app.get('/edit', (req, res)=>{
-  res.render('edit');
-});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
