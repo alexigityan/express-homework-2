@@ -5,25 +5,25 @@ api.use(express.json());
 
 api.delete('/todos/:id', (req, res) => {
   const { id } = req.params;
-  let todos = req.app.locals.todos[res.locals.userId];
+  let { todoList } = res.locals;
 
-  if (!id || !todos.includes(id)) 
+  if (!id || !todoList.includes(id)) 
     res.sendStatus(400);
 
-  todos.delete(id);
-  res.json(todos.list);  
+  todoList.delete(id);
+  res.json(todoList.list);  
 });
 
 api.put('/todos/:id', (req, res) => {
   const { id } = req.params;
-  let todos = req.app.locals.todos[res.locals.userId];
+  const { todoList } = res.locals;
   const { newTodo } = req.body;
 
-  if (!id || !newTodo || !todos.includes(id)) 
+  if (!id || !newTodo || !todoList.includes(id)) 
     res.sendStatus(400);
 
-  todos.edit(id, newTodo);
-  res.json(todos.list);  
+  todoList.edit(id, newTodo);
+  res.json(todoList.list);  
 });
 
 module.exports = api;

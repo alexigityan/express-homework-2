@@ -27,7 +27,7 @@ app.use( (req, res, next) => {
   if (!todos[userId])
     todos[userId] = new TodoList();
   
-  res.locals.userId = userId;
+  res.locals.todoList = todos[userId];
   next();
 });
 
@@ -35,18 +35,18 @@ app.use('/api', api);
 
 app.route('/')
   .get((req, res) => {
-    const todos = app.locals.todos[res.locals.userId];
-    res.render('index', { todos: todos.list });  
+    const { todoList } = res.locals;
+    res.render('index', { todos: todoList.list });  
   })
   .post((req, res) => {
-    const todos = app.locals.todos[res.locals.userId];
+    const { todoList } = res.locals;
     const { todo } = req.body;
 
     if (!todo) 
       res.sendStatus(400);
 
-    todos.add(todo);
-    res.render('index', { todos: todos.list });  
+    todoList.add(todo);
+    res.render('index', { todos: todoList.list });  
   });
 
 app.get('/edit', (req, res)=>{

@@ -18,6 +18,8 @@ class TodoList {
 
   delete(id) {
     this.list = this.list.filter( todo => todo.id.toString() !== id);
+    if (this.list.length === 0)
+      this.freeId = 1;
   }
 
   edit(id, newText) {
