@@ -8,10 +8,15 @@ block content
     input(type="text" name="todo" id="todo" placeholder="Walk the dog" required)
     input(type="submit" value="Add")
 
+  div(id="editor" style="display:none")
+    input(type="text" id="edit-text" required)
+    button(id="edit-button") Save Change
+    button(id="close-editor") Close Editor
+
   div(id="todo-list")
     each todo in todos
       div(class="todo-row")
         p(class="todo-text")= todo.text
-        button(class="edit-button" data-target=todo.id) Edit
+        button(class="edit-button" data-target=todo.id data-text=todo.text) Edit
         button(class="delete-button" data-target=todo.id) Delete
 
