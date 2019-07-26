@@ -6,6 +6,8 @@ deleteButtons.forEach(activateDeleteButton);
 editButtons.forEach(activateEditButton);
 
 document.querySelector('#close-editor').addEventListener('click', hideEditor);
+document.querySelector('#todo').focus();
+
 
 function activateDeleteButton(button) {
   const target = button.getAttribute('data-target');
@@ -21,7 +23,7 @@ function activateEditButton(button) {
   const currentText = button.getAttribute('data-text');
   const target = button.getAttribute('data-target');
   button.addEventListener('click', ()=>{
-    editEntry(target, currentText);
+    prepareEditor(target, currentText);
   });
 }
 
@@ -30,18 +32,25 @@ function showEditor() {
   editor.style.display = '';
 }
 
-
 function hideEditor() {
   const editor = document.querySelector('#editor');
   editor.style.display = 'none';
 }
 
-function editEntry(target, currentText) {
+function prepareEditor(target, currentText) {
   showEditor();
   const editText = document.querySelector('#edit-text');
   editText.value = currentText;
-  document.querySelector('#edit-button').addEventListener('click', ()=>{
-    const newTodo = editText.value;
+  const submit = document.querySelector('#submit-edit');
+  submit.setAttribute('data-target', target);
+  submit.addEventListener('click', submitEdit);
+}
+
+function submitEdit(event) {
+  const target = event.target.getAttribute('data-target');
+  const editText = document.querySelector('#edit-text');
+  const newTodo = editText.value;
+  if(newTodo !== '') {
     fetch(`api/todos/${target}`, { 
       method: 'put', 
       headers: {
@@ -50,10 +59,11 @@ function editEntry(target, currentText) {
       body: JSON.stringify({ newTodo })
     })
       .then(res => res.json())
-      .then(todos => {hideEditor(), displayTodos(todos)})
-      .catch(err => console.log(err));
-  });
-
+      .then(todos => (hideEditor(), displayTodos(todos)))
+      .catch(err => console.log(err)); 
+  } else {
+    editText.focus();
+  }   
 }
 
 function displayTodos(todos) {

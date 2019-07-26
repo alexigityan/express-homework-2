@@ -5,12 +5,12 @@ block content
 
   form(action="/" method="post")
     label(for="todo") New Todo: 
-    input(type="text" name="todo" id="todo" placeholder="Walk the dog" required)
+    input(type="text" name="todo" id="todo" required)
     input(type="submit" value="Add")
 
   div(id="editor" style="display:none")
     input(type="text" id="edit-text" required)
-    button(id="edit-button") Save Change
+    button(id="submit-edit") Save Change
     button(id="close-editor") Close Editor
 
   div(id="todo-list")
