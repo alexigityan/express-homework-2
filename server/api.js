@@ -9,6 +9,7 @@ api.delete('/todos/:id', (req, res) => {
 
   if (!id || !todoList.includes(id)) {
     res.sendStatus(400);
+    return;
   }
 
   todoList.delete(id);
@@ -22,6 +23,7 @@ api.put('/todos/:id', (req, res) => {
 
   if (!id || !newTodo || !todoList.includes(id)) {
     res.sendStatus(400);
+    return;
   }
 
   todoList.edit(id, newTodo);

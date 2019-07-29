@@ -45,6 +45,7 @@ app.route('/')
 
     if (!todo) {
       res.sendStatus(400);
+      return;
     }
 
     todoList.add(todo);
