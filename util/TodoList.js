@@ -26,10 +26,9 @@ class TodoList {
   edit(id, newText) {
     this.list = this.list.map( todo => {
       if (todo.id.toString() === id) {
-        return { id: todo.id, text: newText }
-      } else {
-        return todo
+        return { id: todo.id, text: newText };
       }
+      return todo;      
     });
   } 
 }
