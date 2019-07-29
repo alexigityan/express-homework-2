@@ -24,8 +24,9 @@ app.use( (req, res, next) => {
     maxAge: 7*24*60*60*1000 // cookie expires in a week
   });
 
-  if (!users[userId])
+  if (!users[userId]) {
     users[userId] = new TodoList();
+  }
   
   res.locals.todoList = users[userId];
   next();
@@ -42,8 +43,9 @@ app.route('/')
     const { todoList } = res.locals;
     const { todo } = req.body;
 
-    if (!todo) 
+    if (!todo) {
       res.sendStatus(400);
+    }
 
     todoList.add(todo);
     res.render('index', { todos: todoList.list });  
