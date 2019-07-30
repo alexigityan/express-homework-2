@@ -15,7 +15,7 @@ api.delete('/todos/:id', (req, res) => {
   todoList.delete(id)
     .then(() => todoList.getTodos())
     .then( todos => res.json(todos))
-    .catch( err => console.log(err) );    
+    .catch( err => (console.log(err), res.sendStatus(500)));     
 });
 
 api.put('/todos/:id', (req, res) => {
@@ -31,7 +31,7 @@ api.put('/todos/:id', (req, res) => {
   todoList.edit(id, newTodo)
     .then(() => todoList.getTodos())
     .then( todos => res.json(todos))
-    .catch( err => console.log(err) );    
+    .catch( err => (console.log(err), res.sendStatus(500)));     
 });
 
 module.exports = api;

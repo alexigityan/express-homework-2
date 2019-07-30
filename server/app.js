@@ -38,7 +38,7 @@ app.route('/')
     const { todoList } = res.locals;
     todoList.getTodos()
       .then( todos => res.render('index', { todos }) )
-      .catch( err => console.log(err) );     
+      .catch( err => (console.log(err), res.sendStatus(500)));     
   })
   .post((req, res) => {
     const { todoList } = res.locals;
@@ -52,7 +52,7 @@ app.route('/')
     todoList.add(todo)
       .then( () => todoList.getTodos())    
       .then( todos => res.render('index', { todos }) )
-      .catch( err => console.log(err) );
+      .catch( err => (console.log(err), res.sendStatus(500)));     
   });
 
 const port = process.env.PORT || 3000;
