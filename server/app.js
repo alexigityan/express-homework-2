@@ -8,7 +8,8 @@ const generateId = require('../util/generateId');
 const TodoList = require('../util/TodoList');
 const api = require('./api');
 
-require('../db');
+const connectToDb = require('../db/connect');
+connectToDb();
 
 const app = express();
 
