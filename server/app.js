@@ -36,7 +36,7 @@ app.use('/api', api);
 app.route('/')
   .get((req, res) => {
     const { todoList } = res.locals;
-    todoList.getTodos
+    todoList.getTodos()
       .then( todos => res.render('index', { todos }) )
       .catch( err => console.log(err) );     
   })
@@ -50,7 +50,7 @@ app.route('/')
     }
 
     todoList.add(todo)
-      .then( () => todoList.getTodos)    
+      .then( () => todoList.getTodos())    
       .then( todos => res.render('index', { todos }) )
       .catch( err => console.log(err) );
   });
