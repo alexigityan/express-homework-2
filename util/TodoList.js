@@ -5,7 +5,7 @@ class TodoList {
     this.userId = userId;
   }
 
-  list() {
+  getTodos() {
     return Todo.find({ owner: this.userId });
   }
 
