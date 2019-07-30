@@ -18,18 +18,20 @@ api.delete('/todos/:id', (req, res) => {
     .catch( err => console.log(err) );    
 });
 
-// api.put('/todos/:id', (req, res) => {
-//   const { id } = req.params;
-//   const { todoList } = res.locals;
-//   const { newTodo } = req.body;
+api.put('/todos/:id', (req, res) => {
+  const { id } = req.params;
+  const { todoList } = res.locals;
+  const { newTodo } = req.body;
 
-//   if (!id || !newTodo || !todoList.includes(id)) {
-//     res.sendStatus(400);
-//     return;
-//   }
+  if (!id || !newTodo) {
+    res.sendStatus(400);
+    return;
+  }
 
-//   todoList.edit(id, newTodo);
-//   res.json(todoList.list);  
-// });
+  todoList.edit(id, newTodo)
+    .then(() => todoList.list())
+    .then( todos => res.json(todos))
+    .catch( err => console.log(err) );    
+});
 
 module.exports = api;
