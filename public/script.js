@@ -44,6 +44,7 @@ function prepareEditor(target, currentText) {
   const submit = document.querySelector('#submit-edit');
   submit.setAttribute('data-target', target);
   submit.addEventListener('click', submitEdit);
+  editText.addEventListener('keydown', e => e.key === 'Enter' && submit.click());
 }
 
 function submitEdit(event) {
