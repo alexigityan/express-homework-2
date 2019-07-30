@@ -79,14 +79,14 @@ function displayTodos(todos) {
     todoRow.appendChild(todoText);
     const editButton = document.createElement('button');
     editButton.className = 'edit-button';
-    editButton.setAttribute('data-target', todo.id);
+    editButton.setAttribute('data-target', todo._id);
     editButton.setAttribute('data-text', todo.text);
     editButton.innerText = 'Edit';
     activateEditButton(editButton);
     todoRow.appendChild(editButton);
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-button';
-    deleteButton.setAttribute('data-target', todo.id);
+    deleteButton.setAttribute('data-target', todo._id);
     deleteButton.innerText = 'Delete';
     activateDeleteButton(deleteButton);
     todoRow.appendChild(deleteButton);

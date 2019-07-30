@@ -31,7 +31,7 @@ app.use( (req, res, next) => {
   next();
 });
 
-// app.use('/api', api);
+app.use('/api', api);
 
 app.route('/')
   .get((req, res) => {

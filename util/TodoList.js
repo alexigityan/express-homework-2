@@ -13,15 +13,12 @@ class TodoList {
     return Todo.create({ text: todo, owner: this.userId });
   }
 
-  includes(id) {
-    return Boolean(this.list.find( todo => todo.id.toString() === id));
-  }
+  // includes(id) {
+  //   return Boolean(this.list.find( todo => todo.id.toString() === id));
+  // }
 
-  delete(id) {
-    this.list = this.list.filter( todo => todo.id.toString() !== id);
-    if (this.list.length === 0) {
-      this.freeId = 1;
-    }
+  delete(_id) {
+    return Todo.findOneAndDelete({ _id });
   }
 
   edit(id, newText) {
