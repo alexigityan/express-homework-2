@@ -14,11 +14,11 @@ class TodoList {
   }
 
   delete(_id) {
-    return Todo.findOneAndDelete({ _id });
+    return Todo.findOneAndDelete({ _id, owner: this.userId });
   }
 
   edit(_id, text) {
-    return Todo.findOneAndUpdate({ _id }, { text });
+    return Todo.findOneAndUpdate({ _id, owner: this.userId }, { text });
   } 
 }
 
