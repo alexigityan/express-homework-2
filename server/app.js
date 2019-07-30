@@ -7,9 +7,7 @@ const cookieParser = require('cookie-parser');
 const generateId = require('../util/generateId');
 const TodoList = require('../util/TodoList');
 const api = require('./api');
-
 const connectToDb = require('../db/connect');
-connectToDb();
 
 const app = express();
 
@@ -55,7 +53,12 @@ app.route('/')
       .catch( err => (console.log(err), res.sendStatus(500)));     
   });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Express listening on ${port}`);
-});
+connectToDb()
+  .then( () => {
+    console.log('connected to mongodb');
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+      console.log(`Express listening on ${port}`);
+    });
+  })
+  .catch( err => console.log(err));
