@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const todoSchema = new mongoose.Schema({
-  value: String
+  text: String,
+  owner: String
+}, {
+  versionKey: false
 });
 
 module.exports = mongoose.model('Todo', todoSchema);

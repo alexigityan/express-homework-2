@@ -1,15 +1,16 @@
-
+const Todo = require('../db/models/todo');
 
 class TodoList {
-  constructor() {
-    this.list = [];
+  constructor(userId) {
+    this.userId = userId;
   }
 
-  add(todo) {
-    if (!this.freeId) {
-      this.freeId = 1;
-    }
-    this.list.push({ id: this.freeId++, text: todo });
+  list() {
+    return Todo.find({ owner: this.userId });
+  }
+
+  add(todo) {    
+    return Todo.create({ text: todo, owner: this.userId });
   }
 
   includes(id) {

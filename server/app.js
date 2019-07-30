@@ -13,8 +13,6 @@ connectToDb();
 
 const app = express();
 
-app.locals.users = {};
-
 app.set('view engine', 'pug');
 
 app.use(cookieParser());
@@ -22,28 +20,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use( (req, res, next) => {
-  const { users } = app.locals;
   const { uid } = req.cookies;
-  const userId = (uid && users[uid]) ? uid : generateId();
+  const userId = uid || generateId();
 
   res.cookie('uid', userId, {
     maxAge: 7*24*60*60*1000 // cookie expires in a week
   });
 
-  if (!users[userId]) {
-    users[userId] = new TodoList();
-  }
-  
-  res.locals.todoList = users[userId];
+  res.locals.todoList = new TodoList(userId);
   next();
 });
 
-app.use('/api', api);
+// app.use('/api', api);
 
 app.route('/')
   .get((req, res) => {
     const { todoList } = res.locals;
-    res.render('index', { todos: todoList.list });  
+    todoList.list()
+      .then( todos => res.render('index', { todos }) )
+      .catch( err => console.log(err) );     
   })
   .post((req, res) => {
     const { todoList } = res.locals;
@@ -54,8 +49,10 @@ app.route('/')
       return;
     }
 
-    todoList.add(todo);
-    res.render('index', { todos: todoList.list });  
+    todoList.add(todo)
+      .then( () => todoList.list())    
+      .then( todos => res.render('index', { todos }) )
+      .catch( err => console.log(err) );
   });
 
 const port = process.env.PORT || 3000;
