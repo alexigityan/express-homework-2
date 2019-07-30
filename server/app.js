@@ -5,6 +5,8 @@ const generateId = require('../util/generateId');
 const TodoList = require('../util/TodoList');
 const api = require('./api');
 
+require('../db');
+
 const app = express();
 
 app.locals.users = {};
