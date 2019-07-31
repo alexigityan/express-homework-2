@@ -9,8 +9,8 @@ class TodoList {
     return Todo.find({ owner: this.userId });
   }
 
-  add(todo) {    
-    return Todo.create({ text: todo, owner: this.userId });
+  add(text) {    
+    return Todo.create({ text, owner: this.userId });
   }
 
   delete(_id) {
