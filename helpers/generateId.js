@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const secret = process.env.SECRET || 'pineapple';
+const { secret } = require('../config').generateId;
 
 module.exports = function() {
   return crypto.createHash('sha256', secret)

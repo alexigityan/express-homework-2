@@ -1,13 +1,26 @@
+/* Config files */
 const dotenv = require('dotenv');
 dotenv.config();
+const config = require('../config').app;
 
-const express = require('express');
+/* Core modules */
 const path = require('path');
+
+/* Express modules */
+const express = require('express');
 const cookieParser = require('cookie-parser');
-const generateId = require('../util/generateId');
-const TodoList = require('../util/TodoList');
+
+/* Database modules */
+const connectDb = require('../db/connect');
+
+/* Classes and helper functions */
+const generateId = require('../helpers/generateId');
+const TodoList = require('../classes/TodoList');
+
+/* Routes */
 const api = require('./api');
-const connectToDb = require('../db/connect');
+
+
 
 const app = express();
 
@@ -53,12 +66,11 @@ app.route('/')
       .catch( err => (console.log(err), res.sendStatus(500)));     
   });
 
-connectToDb()
+connectDb()
   .then( () => {
     console.log('connected to mongodb');
-    const port = process.env.PORT || 3000;
-    app.listen(port, () => {
-      console.log(`Express listening on ${port}`);
+    app.listen(config.port, () => {
+      console.log(`Express listening on ${config.port}`);
     });
   })
   .catch( err => console.log(err));

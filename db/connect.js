@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('./config');
+const config = require('../config').db;
 
 const { host, port, db, user, pass } = config;
 const uri = `mongodb://${user}:${pass}@${host}:${port}/${db}`;
