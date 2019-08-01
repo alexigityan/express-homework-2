@@ -6,14 +6,16 @@ const state = {
 
 /* Components */
 
+const Elem = (tag) => document.createElement(tag);
+
 const Heading = (text) => {
-  const heading = document.createElement('h1');
+  const heading = Elem('h1');
   heading.innerText = text;
   return heading;
 };
 
 const Form = (submitHandler) => {
-  const form = document.createElement('form');
+  const form = Elem('form');
   form.addEventListener('submit', submitHandler);
   return form;
 } 
@@ -23,7 +25,7 @@ const NewTodoForm = () => Form(postNewTodo);
 const EditForm = () => Form(submitEditValue);
 
 const TextInput = (changeHandler, value='', isFocused=false) => {
-  const input = document.createElement('input');
+  const input = Elem('input');
   input.type = 'text';
   input.value = value;
   input.addEventListener('change', changeHandler);
@@ -34,7 +36,7 @@ const TextInput = (changeHandler, value='', isFocused=false) => {
 }
 
 const Button = (type, text, clickHandler) => {
-  const button = document.createElement('button');
+  const button = Elem('button');
   button.type = type;
   button.innerText = text;
   if (clickHandler) {
@@ -44,19 +46,19 @@ const Button = (type, text, clickHandler) => {
 }
 
 const TodoList = () => {
-  const todoList = document.createElement('div');
+  const todoList = Elem('div');
   todoList.className = 'todo-list';
   return todoList;
 }
 
 const TodoRow = () => {
-  const todoRow = document.createElement('div');
+  const todoRow = Elem('div');
   todoRow.className = 'todo-row';
   return todoRow;
 }
 
 const TodoText = (text) => {
-  const todoText = document.createElement('p');
+  const todoText = Elem('p');
   todoText.innerText = text;
   return todoText;
 }
