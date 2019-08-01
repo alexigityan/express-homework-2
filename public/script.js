@@ -76,7 +76,7 @@ const PopulatedTodoRows = () => {
 
 function getTodos() {
   fetch('/api/todos')
-    .then( res => res.json() )
+    .then( res => res.ok && res.json() )
     .then( todos => {
       state.todos = todos;
       renderTodoApp();
@@ -98,7 +98,7 @@ function postNewTodo(e) {
       'Content-Type': 'application/json'
     }
   })
-    .then( res => res.json() )
+    .then( res => res.ok && res.json() )
     .then( todos => {
       state.todos = todos;
       state.newTodo = '';
@@ -121,7 +121,7 @@ function submitEditValue(e) {
       'Content-Type': 'application/json'
     }
   })
-    .then( res => res.json() )
+    .then( res => res.ok && res.json() )
     .then( todos => {
       state.todos = todos;
       closeEditor();
@@ -131,7 +131,7 @@ function submitEditValue(e) {
 
 function deleteTodo(id) {
   fetch(`/api/todos/${id}`, { method: 'delete' })
-    .then( res => res.json() )
+    .then( res => res.ok && res.json() )
     .then( todos => {
       state.todos = todos;
       renderTodoApp();
