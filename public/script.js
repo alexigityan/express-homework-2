@@ -6,23 +6,23 @@ const state = {
 
 /* Components */
 
-const heading = (text) => {
+const Heading = (text) => {
   const heading = document.createElement('h1');
   heading.innerText = text;
   return heading;
 };
 
-const form = (submitHandler) => {
+const Form = (submitHandler) => {
   const form = document.createElement('form');
   form.addEventListener('submit', submitHandler);
   return form;
 } 
 
-const newTodoForm = () => form(postNewTodo);
+const NewTodoForm = () => Form(postNewTodo);
 
-const editForm = () => form(submitEditValue);
+const EditForm = () => Form(submitEditValue);
 
-const textInput = (changeHandler, value='', isFocused=false) => {
+const TextInput = (changeHandler, value='', isFocused=false) => {
   const input = document.createElement('input');
   input.type = 'text';
   input.value = value;
@@ -33,7 +33,7 @@ const textInput = (changeHandler, value='', isFocused=false) => {
   return input;
 }
 
-const button = (type, text, clickHandler) => {
+const Button = (type, text, clickHandler) => {
   const button = document.createElement('button');
   button.type = type;
   button.innerText = text;
@@ -43,30 +43,30 @@ const button = (type, text, clickHandler) => {
   return button;
 }
 
-const todoList = () => {
+const TodoList = () => {
   const todoList = document.createElement('div');
   todoList.className = 'todo-list';
   return todoList;
 }
 
-const todoRow = () => {
+const TodoRow = () => {
   const todoRow = document.createElement('div');
   todoRow.className = 'todo-row';
   return todoRow;
 }
 
-const todoText = (text) => {
+const TodoText = (text) => {
   const todoText = document.createElement('p');
   todoText.innerText = text;
   return todoText;
 }
 
-const populatedTodoRows = () => {
+const PopulatedTodoRows = () => {
   return state.todos.map( todo => (
-    { node: todoRow(), children: [
-      { node: todoText(todo.text) },
-      { node: button('button', 'Edit', ((id, text) => () => showEditor(id, text))(todo._id, todo.text)) },
-      { node: button('button', 'Delete', (id => () => deleteTodo(id))(todo._id)) }
+    { node: TodoRow(), children: [
+      { node: TodoText(todo.text) },
+      { node: Button('button', 'Edit', ((id, text) => () => showEditor(id, text))(todo._id, todo.text)) },
+      { node: Button('button', 'Delete', (id => () => deleteTodo(id))(todo._id)) }
     ]}));
 }
 
@@ -168,43 +168,46 @@ function saveEditText(e) {
 
 /* Render functions */
 
-function renderDom( parent, pseudodom ) {
+function renderDom( parent, tree ) {
   while (parent.childNodes.length > 0) {
     parent.childNodes[0].remove();
   }
 
-  pseudodom.forEach( elem => {
-    if (!(elem.shouldRender === false)) {
-      parent.appendChild(elem.node);
-      if (elem.children) {
-        renderDom(elem.node, elem.children);
+  tree.forEach( branch => {
+    if (!(branch.shouldRender === false)) {
+      parent.appendChild(branch.node);
+      if (branch.children) {
+        renderDom(branch.node, branch.children);
       }
     }
   });
 }
 
 function renderTodoApp() {
-  renderDom(document.getElementById('root'), [
-    { node: heading('Todo App') },
-    { node: newTodoForm(), shouldRender: !state.showEditForm, children: [
-      { node: textInput(saveNewTodo, state.newTodo, !state.showEditForm) },
-      { node: button('submit', 'Add') }
+  const root = document.getElementById('root');
+
+  const todoAppStructure = [
+    { node: Heading('Todo App') },
+    { node: NewTodoForm(), shouldRender: !state.showEditForm, children: [
+      { node: TextInput(saveNewTodo, state.newTodo, !state.showEditForm) },
+      { node: Button('submit', 'Add') }
     ]},
-    { node: editForm(), shouldRender: state.showEditForm, children: [
-      { node: textInput(saveEditText, state.editText, state.showEditForm) },
-      { node: button('submit', 'Save') },
-      { node: button('button', 'Close Editor', closeEditor)}
+    { node: EditForm(), shouldRender: state.showEditForm, children: [
+      { node: TextInput(saveEditText, state.editText, state.showEditForm) },
+      { node: Button('submit', 'Save') },
+      { node: Button('button', 'Close Editor', closeEditor)}
     ]},
-    { node: todoList(), children: populatedTodoRows() }
-  ]);
+    { node: TodoList(), children: PopulatedTodoRows() }
+  ];
+
+  renderDom(root, todoAppStructure);
 
   if (state.focusedNode) {
     state.focusedNode.focus();
+    state.focusedNode = null;
   }
 
 }
-
-
 
 
 renderTodoApp();
