@@ -12,14 +12,14 @@ api.get('/todos/', (req, res) => {
 
 api.post('/todos/',(req, res) => {
   const { todoList } = res.locals;
-  const { todo } = req.body;
+  const { newTodo } = req.body;
 
-  if (!todo) {
+  if (!newTodo) {
     res.sendStatus(400);
     return;
   }
 
-  todoList.add(todo)
+  todoList.add(newTodo)
     .then( () => todoList.getTodos())    
     .then( todos => res.json(todos) )
     .catch( err => (console.log(err), res.sendStatus(500)));     
@@ -43,14 +43,14 @@ api.delete('/todos/:id', (req, res) => {
 api.put('/todos/:id', (req, res) => {
   const { id } = req.params;
   const { todoList } = res.locals;
-  const { newTodo } = req.body;
+  const { newText } = req.body;
 
-  if (!id || !newTodo) {
+  if (!id || !newText) {
     res.sendStatus(400);
     return;
   }
 
-  todoList.edit(id, newTodo)
+  todoList.edit(id, newText)
     .then(() => todoList.getTodos())
     .then( todos => res.json(todos))
     .catch( err => (console.log(err), res.sendStatus(500)));     

@@ -6,7 +6,7 @@ class TodoList {
   }
 
   getTodos() {
-    return Todo.find({ owner: this.userId });
+    return Todo.find({ owner: this.userId }, { owner: 0 });
   }
 
   add(text) {    
