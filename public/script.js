@@ -174,11 +174,14 @@ function renderDom( parent, tree ) {
   }
 
   tree.forEach( branch => {
-    if (!(branch.shouldRender === false)) {
-      parent.appendChild(branch.node);
-      if (branch.children) {
-        renderDom(branch.node, branch.children);
-      }
+
+    if (branch.shouldRender === false) {
+      return;
+    }
+
+    parent.appendChild(branch.node);
+    if (branch.children) {
+      renderDom(branch.node, branch.children);
     }
   });
 }
