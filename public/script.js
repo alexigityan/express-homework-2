@@ -169,7 +169,7 @@ function saveEditText(e) {
 /* Render functions */
 
 function renderDom( parent, pseudodom ) {
-  while( parent.childNodes.length > 0 ) {
+  while (parent.childNodes.length > 0) {
     parent.childNodes[0].remove();
   }
 
