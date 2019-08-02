@@ -5,8 +5,10 @@
   "main": "server/app.js",
   "private": true,
   "scripts": {
-    "start": "node server/app.js",
-    "dev": "nodemon server/app.js"
+    "start": "npm run build && node server/app.js",
+    "dev": "nodemon server/app.js --ignore src/ --ignore public/",
+    "watch": "parcel watch src/index.html -d public",
+    "build": "parcel build src/index.html -d public"
   },
   "keywords": [],
   "author": "Alex Igityan",
@@ -15,9 +17,20 @@
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "mongoose": "^5.6.7"
+    "mongoose": "^5.6.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "@babel/core": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "nodemon": "^1.19.1",
+    "parcel-bundler": "^1.12.3",
+    "parcel-plugin-clean-dist": "0.0.6"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
   }
 }
