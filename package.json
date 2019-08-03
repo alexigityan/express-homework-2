@@ -5,7 +5,7 @@
   "main": "server/app.js",
   "private": true,
   "scripts": {
-    "start": "parcel build src/index.html -d public && node server/app.js",
+    "start": "node server/app.js",
     "dev": "nodemon server/app.js --ignore src/ --ignore public/",
     "watch": "parcel watch src/index.html -d public",
     "build": "parcel build src/index.html -d public"
