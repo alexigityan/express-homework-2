@@ -5,6 +5,9 @@
   export const EDIT_TODO = 'EDIT_TODO';
   export const DELETE_TODO = 'DELETE_TODO';
 
+  export const START_LOADING = 'START_LOADING';
+  export const FINISH_LOADING = 'FINISH_LOADING';
+
   /* Form reducer*/
   export const EDIT_MODE_ON = 'EDIT_MODE_ON';
   export const EDIT_MODE_OFF = 'EDIT_MODE_OFF';

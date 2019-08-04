@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Spinner from 'reactjs-simple-spinner';
 import TodoContainer from './TodoContainer';
+
 
 class TodoList extends React.Component {
   componentDidMount() {
@@ -9,7 +11,10 @@ class TodoList extends React.Component {
   }
 
   render() {
-
+    if (this.props.isLoading) {
+      return <div className="TodoList"> <Spinner /> </div>
+    }
+    
     return (
       <div className="TodoList">
         { 
@@ -27,7 +32,8 @@ class TodoList extends React.Component {
 }
 
 TodoList.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default TodoList;

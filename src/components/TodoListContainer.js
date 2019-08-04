@@ -5,7 +5,8 @@ import TodoList from './TodoList';
 import fetchTodos from '../actions/fetchTodos';
 
 const mapState = ({ todos }) => ({ 
-  todos: Object.values(todos.todosById) 
+  todos: Object.values(todos.todosById),
+  isLoading: todos.isLoading 
 });
 
 const mapDispatch = dispatch => ({ fetchTodos: () => dispatch(fetchTodos()) });
