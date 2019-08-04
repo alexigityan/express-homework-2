@@ -34,7 +34,7 @@ api.delete('/todos/:id', (req, res) => {
   }
 
   todoList.delete(id)
-    .then( ({ _id }) => res.json({ _id }))
+    .then( data => data ? res.json({ _id: data._id }) : res.sendStatus(404))
     .catch( err => (console.log(err), res.sendStatus(500)));     
 });
 
@@ -49,7 +49,7 @@ api.put('/todos/:id', (req, res) => {
   }
 
   todoList.edit(id, newText)
-    .then( ({ _id, text }) => res.json({ _id, text }))
+    .then( data => data ? res.json({ _id: data._id, text: data.text }) : res.sendStatus(404))
     .catch( err => (console.log(err), res.sendStatus(500)));     
 });
 

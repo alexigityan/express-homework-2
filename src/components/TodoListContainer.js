@@ -4,7 +4,9 @@ import TodoList from './TodoList';
 
 import fetchTodos from '../actions/fetchTodos';
 
-const mapState = ({ todos }) => ({ todos: todos.allTodos.map( id => todos.todosById[id]) });
+const mapState = ({ todos }) => ({ 
+  todos: todos.allTodos.map( id => todos.todosById[id] || null) 
+});
 
 const mapDispatch = dispatch => ({ fetchTodos: () => dispatch(fetchTodos()) });
 
