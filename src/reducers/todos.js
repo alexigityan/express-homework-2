@@ -1,6 +1,5 @@
 const initialState = {
   todosById: {},
-  allTodos: []
 };
 
 export default function (state=initialState, action) {
@@ -8,20 +7,19 @@ export default function (state=initialState, action) {
   switch (action.type) {
     
     case 'SET_TODOS': {
-      return { todosById: action.todosById, allTodos: action.allTodos };
+      return { todosById: action.todosById };
     }
 
     case 'ADD_TODO': {
       const newTodo = { _id: action._id, text: action.text };
-      return { todosById: {...state.todosById, [newTodo._id] :newTodo }, allTodos: [...state.allTodos, newTodo._id] };
+      return { todosById: {...state.todosById, [newTodo._id] :newTodo } };
     }
 
 
     case 'DELETE_TODO': {
       const newTodosById = { ...state.todosById };
       delete newTodosById[action._id];
-      const newAllTodos = Object.keys(newTodosById);
-      return { todosById: newTodosById, allTodos: newAllTodos };
+      return { todosById: newTodosById };
     }
 
     
@@ -30,7 +28,7 @@ export default function (state=initialState, action) {
       if (newTodosById[action._id]) {
         newTodosById[action._id].text = action.text;
       }
-      return { todosById: newTodosById, allTodos: [...state.allTodos] }
+      return { todosById: newTodosById }
     }
 
 
