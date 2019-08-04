@@ -14,12 +14,12 @@ export default function (state=initialState, action) {
   switch (action.type) {
     
     case SET_TODOS: {
-      return { todosById: action.todosById };
+      return { todosById: { ...action.todosById } };
     }
 
     case ADD_TODO: {
       const newTodo = { _id: action._id, text: action.text };
-      return { todosById: {...state.todosById, [newTodo._id] :newTodo } };
+      return { todosById: {...state.todosById, [newTodo._id]: newTodo } };
     }
 
 
@@ -31,11 +31,8 @@ export default function (state=initialState, action) {
 
     
     case EDIT_TODO: {
-      const newTodosById = { ...state.todosById };
-      if (newTodosById[action._id]) {
-        newTodosById[action._id].text = action.text;
-      }
-      return { todosById: newTodosById }
+      const editedTodo = { _id: action._id, text: action.text };
+      return { todosById: { ...state.todosById, [action._id]: editedTodo } };
     }
 
 

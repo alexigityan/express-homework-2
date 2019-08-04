@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Todo = props => {
+const Todo = ({ _id, text, editTodo, deleteTodo }) => {
 
   return (
     <div className="Todo">
-      <p className="todo-text">{props.text}</p>
-      <button onClick={() => props.editTodo(props._id, props.text)}>Edit</button>
-      <button onClick={() => props.deleteTodo(props._id)}>Delete</button>
+      <p className="todo-text">{text}</p>
+      <button onClick={() => editTodo(_id, text)}>Edit</button>
+      <button onClick={() => deleteTodo(_id)}>Delete</button>
     </div>
   )
 

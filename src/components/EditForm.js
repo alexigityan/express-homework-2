@@ -12,17 +12,19 @@ class EditForm extends Component {
   }
 
   render() {
+    const { editTodo, editId, editText, setEditText, closeEditor } = this.props;
+    
     return (
-      <form className="EditForm" onSubmit={(e)=> this.props.editTodo(e, this.props.editId, this.props.editText) }>
+      <form className="EditForm" onSubmit={(e)=> editTodo(e, editId, editText) }>
         <input 
           type="text" 
-          value={this.props.editText} 
-          onChange={(e)=>this.props.setEditText(e.target.value)}
+          value={editText} 
+          onChange={(e)=>setEditText(e.target.value)}
           placeholder="New text"
           ref={this.inputRef}
         />
         <input type="submit" value="Save changes" />
-        <button onClick={this.props.closeEditor}>Close Editor</button> 
+        <button onClick={closeEditor}>Close Editor</button> 
       </form>
     )
   }

@@ -13,12 +13,14 @@ class AddForm extends Component {
 
 
   render() {
+    const { addTodo, addText, setAddText } = this.props;
+
     return (
-      <form className="AddForm" onSubmit={(e)=>this.props.addTodo(e, this.props.addText)} >
+      <form className="AddForm" onSubmit={(e)=>addTodo(e, addText)} >
         <input 
           type="text" 
-          value={this.props.addText} 
-          onChange={(e)=>this.props.setAddText(e.target.value)}
+          value={addText} 
+          onChange={(e)=>setAddText(e.target.value)}
           placeholder="Add new todo"
           ref={this.inputRef}
         />
