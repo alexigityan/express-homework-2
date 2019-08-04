@@ -18,7 +18,7 @@ class TodoList {
   }
 
   edit(_id, text) {
-    return Todo.findOneAndUpdate({ _id, owner: this.userId }, { text });
+    return Todo.findOneAndUpdate({ _id, owner: this.userId }, { text }, { new: true });
   } 
 }
 

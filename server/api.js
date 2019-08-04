@@ -6,7 +6,7 @@ api.use(express.json());
 api.get('/todos/', (req, res) => {
   const { todoList } = res.locals;
   todoList.getTodos()
-    .then( todos => res.json(todos) )
+    .then( todos => res.json({ todos }))
     .catch( err => (console.log(err), res.sendStatus(500)));     
 })
 
@@ -20,8 +20,7 @@ api.post('/todos/',(req, res) => {
   }
 
   todoList.add(newTodo)
-    .then( () => todoList.getTodos())    
-    .then( todos => res.json(todos) )
+    .then( ({ _id, text }) => res.json({ _id, text }) )
     .catch( err => (console.log(err), res.sendStatus(500)));     
 });
 
@@ -35,8 +34,7 @@ api.delete('/todos/:id', (req, res) => {
   }
 
   todoList.delete(id)
-    .then(() => todoList.getTodos())
-    .then( todos => res.json(todos))
+    .then( ({ _id }) => res.json({ _id }))
     .catch( err => (console.log(err), res.sendStatus(500)));     
 });
 
@@ -51,8 +49,7 @@ api.put('/todos/:id', (req, res) => {
   }
 
   todoList.edit(id, newText)
-    .then(() => todoList.getTodos())
-    .then( todos => res.json(todos))
+    .then( ({ _id, text }) => res.json({ _id, text }))
     .catch( err => (console.log(err), res.sendStatus(500)));     
 });
 

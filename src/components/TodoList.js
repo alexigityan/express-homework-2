@@ -1,15 +1,22 @@
 import React from 'react';
 
-import Todo from './Todo';
+import TodoContainer from './TodoContainer';
 
-const TodoList = props => {
-  return (
-    <div className="TodoList">
-      { props.todos.map( ({ text, _id }) => { 
-        return <Todo key={_id} text={text} id={_id} setAppState={props.setAppState} /> ;
-      })}
-    </div>
-  )
+class TodoList extends React.Component {
+  componentDidMount() {
+    this.props.fetchTodos();
+  }
+
+  render() {
+    return (
+      <div className="TodoList">
+        { this.props.todos.map( ({ text, _id }) => { 
+          return <TodoContainer text={text} _id={_id} /> ;
+        })}
+      </div>
+    )
+  }
+
 }
 
 export default TodoList;

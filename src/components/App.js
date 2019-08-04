@@ -1,47 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import AddTodo from './AddTodo';
-import EditTodo from './EditTodo';
-import TodoList from './TodoList';
+import { Provider } from 'react-redux';
+import store from '../store';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      todos: [],
-      editMode: false,
-      editId: '',
-      editText: '',
-      addText: ''
-    }
+import FormContainer from './FormContainer';
+import TodoListContainer from './TodoListContainer';
 
-    this.setAppState = this.setAppState.bind(this);
-  }
-
-  componentDidMount() {
-    fetch('/api/todos')
-    .then( res => res.ok && res.json() )
-    .then( todos => this.setAppState('todos', todos) )
-    .catch( err => console.log(err) );
-  }
-
-  setAppState(prop, value) {
-    this.setState({ [prop]: value })
-  }
-
-  render() {
-    return (
+const App = () => {
+  return (
+    <Provider store={store}>
       <div className="App">
-        <h1>Todo App</h1>
-          { this.state.editMode ? 
-            <EditTodo setAppState={this.setAppState} editId={this.state.editId} editText={this.state.editText} /> : 
-            <AddTodo setAppState={this.setAppState} addText={this.state.addText} /> 
-          }
-          <TodoList todos={this.state.todos} setAppState={this.setAppState} />
+        <FormContainer />     
+        <TodoListContainer />
       </div>
-    )
-  }
-
-} 
+    </Provider>
+  )
+}
 
 export default App;
