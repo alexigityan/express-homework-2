@@ -6,7 +6,7 @@ export default function (id, text) {
       body: JSON.stringify({ newText: text }) 
     })
     .then(res => res.ok ? res.json() : console.log(res))
-    .then(editedTodo => dispatch({ type:'EDIT_TODO', editId: editedTodo._id, editText: editedTodo.text }));
+    .then(({ _id, text }) => dispatch({ type:'EDIT_TODO', _id, text }));
   }
 }
 

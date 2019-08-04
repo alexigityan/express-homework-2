@@ -12,14 +12,14 @@ export default function (state=initialState, action) {
     }
 
     case 'ADD_TODO': {
-      const newTodo = { _id: action.newId, text: action.newText };
+      const newTodo = { _id: action._id, text: action.text };
       return { todosById: {...state.todosById, [newTodo._id] :newTodo }, allTodos: [...state.allTodos, newTodo._id] };
     }
 
 
     case 'DELETE_TODO': {
       const newTodosById = { ...state.todosById };
-      delete newTodosById[action.id];
+      delete newTodosById[action._id];
       const newAllTodos = Object.keys(newTodosById);
       return { todosById: newTodosById, allTodos: newAllTodos };
     }
@@ -27,8 +27,8 @@ export default function (state=initialState, action) {
     
     case 'EDIT_TODO': {
       const newTodosById = { ...state.todosById };
-      if (newTodosById[action.editId]) {
-        newTodosById[action.editId].text = action.editText;
+      if (newTodosById[action._id]) {
+        newTodosById[action._id].text = action.text;
       }
       return { todosById: newTodosById, allTodos: [...state.allTodos] }
     }

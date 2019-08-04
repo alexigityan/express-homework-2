@@ -6,7 +6,7 @@ export default function (text) {
       body: JSON.stringify({ newTodo: text }) 
     })
       .then(res => res.ok ? res.json() : console.log(res))
-      .then(newTodo => dispatch({ type:'ADD_TODO', newId: newTodo._id, newText: newTodo.text }));
+      .then(({ _id, text }) => dispatch({ type:'ADD_TODO', _id, text }));
   }
 }
 
