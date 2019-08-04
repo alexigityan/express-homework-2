@@ -1,34 +1,19 @@
 import React from 'react';
 
+import AddForm from './AddForm';
+import EditForm from './EditForm';
+
 const Form = (props) => {
 
+  const { addTodo, addText, setAddText, ...editFormProps } = props;
+  const addFormProps = { addTodo, addText, setAddText };
+  
   if (props.isEditModeOn) {
-    return (
-      <form className="EditTodo" onSubmit={(e)=> props.editTodo(e, props.editId, props.editText) }>
-        <input 
-          type="text" 
-          value={props.editText} 
-          onChange={(e)=>props.setEditText(e.target.value)}
-          placeholder="New text"
-        />
-        <input type="submit" value="Save changes" />
-        <button onClick={props.closeEditor}>Close Editor</button> 
-      </form>
-    )
+    return <EditForm  { ...editFormProps } /> ;
   }
 
-  return (
-    <form className="AddTodo" onSubmit={(e)=>props.addTodo(e, props.addText)} >
-      <input 
-        type="text" 
-        value={props.addText} 
-        onChange={(e)=>props.setAddText(e.target.value)}
-        placeholder="Add new todo"
-      />
-      <input type="submit" value="Add" /> 
-    </form>
-  )
-
+  return <AddForm { ...addFormProps } /> ;
+   
 } 
 
 export default Form;
