@@ -11,7 +11,7 @@ class TodoList extends React.Component {
     return (
       <div className="TodoList">
         { this.props.todos.map( ({ text, _id }) => { 
-          return <TodoContainer key={_id} text={text} _id={_id} /> ;
+          return <TodoContainer key={'_'+_id} text={text} _id={_id} /> ;
         })}
       </div>
     )

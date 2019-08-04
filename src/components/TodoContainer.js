@@ -1,20 +1,23 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import Todo from './Todo'
+import Todo from './Todo';
 
 import deleteTodo from '../actions/deleteTodo';
+import { SET_EDIT_ID, SET_EDIT_TEXT, EDIT_MODE_ON } from '../actions/actionTypes';
 
 const mapDispatch = dispatch => ({
   deleteTodo: (id) => dispatch(deleteTodo(id)),
-  setEditId: (id) => dispatch({ type: 'SET_EDIT_ID', id }),
-  setEditText: (text) => dispatch({ type: 'SET_EDIT_TEXT', text }),
-  openEditor: () => dispatch({ type: 'EDIT_MODE_ON' })
+  editTodo: (id, text) => {
+    dispatch({ type: SET_EDIT_ID, id });
+    dispatch({ type: SET_EDIT_TEXT, text });
+    dispatch({ type: EDIT_MODE_ON });
+  }
 });
 
-const assignKey = (stateProps, dispatchProps, ownProps) => ({
+const assignKey = (_, dispatchProps, ownProps) => ({
   ...ownProps,
   ...dispatchProps,
   key: ownProps._id
-})
+});
 
 export default connect(null, mapDispatch, assignKey)(Todo);
