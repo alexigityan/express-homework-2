@@ -8,10 +8,7 @@ module.exports = {
   },
 
   app: {
-    port: process.env.PORT || 3000
-  },
-
-  generateId: {
-    secret: process.env.GEN_SECRET || 'pineapple'
+    port: process.env.PORT || 3000,
+    secret: process.env.SECRET || 'pineapple'
   }
 }
